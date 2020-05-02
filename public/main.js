@@ -12,7 +12,7 @@ window.onload = () => {
 };
 
 function startGame() {
-  socket = io("localhost:3000", { reconnection: false });
+  socket = io({ reconnection: false });
   socket.on("frame", (data) => {
     drawBackground(data);
     drawSnakes(data);

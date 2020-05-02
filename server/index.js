@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const http = require("http").createServer(app).listen(3000);
+const http = require("http").createServer(app).listen(80);
 const io = require("socket.io")(http);
 
 const Player = require("./Player.js");
@@ -21,7 +21,7 @@ apple.genAppleCoordinates();
 setInterval(() => {
   gameFrame();
   io.emit("frame", { apple, players });
-}, 1000 / 15);
+}, 1000 / 20);
 
 function gameFrame() {
   setNextPosition();
@@ -105,6 +105,7 @@ function checkCollisions() {
     ) {
       player.longueurQueue++;
       apple.genAppleCoordinates();
+      io.emit("eat");
     }
 
     for ({ x, y } of player.positionsQueue) {
