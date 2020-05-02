@@ -13,7 +13,7 @@ app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "../public/index.html"))
 );
 
-const players = [];
+let players = [];
 const map = new Map();
 const apple = new Apple(map);
 apple.genAppleCoordinates();
@@ -34,6 +34,10 @@ io.on("connection", (socket) => {
 
   const player = new Player(socket.id);
   players.push(player);
+
+  socket.on("disconnect", () => {
+    players = players.filter((p) => p.id !== socket.id);
+  });
 
   socket.on("move", (arrow) => {
     switch (arrow) {
