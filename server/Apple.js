@@ -14,7 +14,7 @@ module.exports = class Apple {
         .flat();
       for ({ x, y } of playersPosition) {
         if (x === this.pommeX && y === this.pommeY) {
-          genAppleCoordinates();
+          this.genAppleCoordinates(players);
         }
       }
     }

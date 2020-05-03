@@ -7,8 +7,8 @@ module.exports = class Player {
     this.previousYV = 0;
     this.positionX = 0;
     this.positionY = 0;
-    this.longueurQueue = 10;
+    this.longueurQueue = 5;
     this.positionsQueue = [];
-    this.isGameOver = false;
+    this.score = 0;
   }
 };

@@ -1,8 +1,14 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const http = require("http").createServer(app).listen(80);
+const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+
+if (process.env.PORT) {
+  http.listen(process.env.PORT);
+} else {
+  http.listen(80);
+}
 
 const Player = require("./Player.js");
 const Map = require("./Map.js");
@@ -104,8 +110,9 @@ function checkCollisions() {
       apple.pommeY === player.positionY
     ) {
       player.longueurQueue++;
-      apple.genAppleCoordinates();
+      player.score++;
       io.emit("eat");
+      apple.genAppleCoordinates(players);
     }
 
     for ({ x, y } of player.positionsQueue) {
