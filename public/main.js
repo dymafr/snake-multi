@@ -1,5 +1,6 @@
 let canvas;
 let ctx;
+let waitingId;
 let socket;
 let scores;
 const eatingAudio = new Audio("./assets/crunch.mp3");
@@ -15,16 +16,26 @@ window.onload = () => {
 
 function startGame() {
   socket = io({ reconnection: false });
-  socket.on("frame", (data) => {
-    drawBackground(data);
-    drawSnakes(data);
-    drawApple(data);
-    writeScores(data, socket.id);
+
+  socket.on("connect", () => {
+    waitForOpponent();
   });
 
-  socket.on("gameover", () => {
-    socket.disconnect();
-    gameOver();
+  socket.on("frame", (data) => {
+    clearInterval(waitingId);
+    requestAnimationFrame(() => {
+      drawBackground(data);
+      drawSnakes(data);
+      drawApple(data);
+      writeScores(data, socket.id);
+    });
+  });
+
+  socket.on("gameover", (id) => {
+    if (id === socket.id) {
+      socket.disconnect();
+      gameOver();
+    }
   });
 
   socket.on("eat", () => {

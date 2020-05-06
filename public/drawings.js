@@ -37,7 +37,6 @@ function drawSnakes(data) {
 function writeScores(data, id) {
   const myScore = data.players.find((p) => p.id === id).score;
   const opponent = data.players.find((p) => p.id !== id);
-  console.log(opponent);
   scores.innerHTML = `Scores : <span style="color:green">${myScore}</span>`;
   if (opponent) {
     scores.innerHTML += ` / <span style="color:red">${opponent.score}</span>`;

@@ -22,6 +22,24 @@ function enterFullScreen() {
   }
 }
 
+function waitForOpponent() {
+  let blink = true;
+  waitingId = setInterval(() => {
+    drawBackground();
+    blink = !blink;
+    if (blink) {
+      ctx.font = "60px Impact";
+      ctx.fillStyle = "White";
+      ctx.textAlign = "center";
+      ctx.fillText(
+        "En attente d'un joueur",
+        canvas.width / 2,
+        canvas.height / 2
+      );
+    }
+  }, 800);
+}
+
 function gameOver() {
   drawBackground();
   ctx.font = "60px Impact";

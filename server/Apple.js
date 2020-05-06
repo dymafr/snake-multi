@@ -12,7 +12,7 @@ module.exports = class Apple {
       const playersPosition = players
         .map((player) => player.positionsQueue)
         .flat();
-      for ({ x, y } of playersPosition) {
+      for (let { x, y } of playersPosition) {
         if (x === this.pommeX && y === this.pommeY) {
           this.genAppleCoordinates(players);
         }
