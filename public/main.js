@@ -23,12 +23,10 @@ function startGame() {
 
   socket.on("frame", (data) => {
     clearInterval(waitingId);
-    requestAnimationFrame(() => {
-      drawBackground(data);
-      drawSnakes(data);
-      drawApple(data);
-      writeScores(data, socket.id);
-    });
+    drawBackground(data);
+    drawSnakes(data);
+    drawApple(data);
+    writeScores(data, socket.id);
   });
 
   socket.on("gameover", (id) => {
